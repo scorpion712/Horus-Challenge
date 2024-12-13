@@ -2,15 +2,13 @@
 using Horus_Challenge.Services.Interfaces;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Text;
-using System.Text.Json;
+using System.Text; 
 
 namespace Horus_Challenge.Services;
 
 public class AuthService(HttpClientService httpClientService) : IAuthService
 {
-    private readonly HttpClient client = httpClientService.GetClient();
-    JsonSerializerOptions _serializerOptions;
+    private readonly HttpClient client = httpClientService.GetClient(); 
 
     public async Task<User?> SignIn(string email, string password)
     {
@@ -28,9 +26,15 @@ public class AuthService(HttpClientService httpClientService) : IAuthService
                 return null;
             }
 
-            var loginResponse = await response.Content.ReadAsStringAsync();
+            var userResponse = await response.Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<User>(loginResponse);
+            var user = JsonConvert.DeserializeObject<User>(userResponse);
+
+            // set token
+            httpClientService.SetAuthorizationToken(user!.AuthorizationToken);
+
+            return user;
+
         }
         catch (Exception ex)
         {

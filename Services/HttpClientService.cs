@@ -16,4 +16,13 @@ public class HttpClientService
     }
 
     public HttpClient GetClient() => _client;
+
+    public void SetAuthorizationToken(string token)
+    {
+        _client.DefaultRequestHeaders.Remove("Authorization");
+        if (!string.IsNullOrWhiteSpace(token))
+        {
+            _client.DefaultRequestHeaders.Add("Authorization", token);
+        } 
+    }
 }
