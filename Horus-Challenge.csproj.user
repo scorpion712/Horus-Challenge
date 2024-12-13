@@ -8,6 +8,9 @@
     <DefaultDevice>pixel_5_-_custom</DefaultDevice>
   </PropertyGroup>
   <ItemGroup>
+    <MauiXaml Update="Helpers\UI\CustomEntry.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Views\LoginPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Horus_Challenge.Views.LoginPage"
              xmlns:converters="clr-namespace:Horus_Challenge.Helpers.Converters"
+             xmlns:uiHelper="clr-namespace:Horus_Challenge.Helpers.UI"
              Shell.NavBarIsVisible="False"
              x:Name="ThisPage">
     <Grid RowDefinitions="Auto, *"
@@ -36,58 +37,28 @@
                              VerticalOptions="FillAndExpand">
             <VerticalStackLayout Margin="0,25,0,5"
                                  Spacing="10">
-                <Grid Margin="25,0,25,0"
-                      RowDefinitions="*,*">
-                    <Label Text="Email"
-                           FontSize="12"
-                           FontFamily="GilroyRegular"
-                           TextColor="#828282"
-                           Margin="15,0,0,5" />
-                    <Frame Grid.Row="1"
-                           Padding="2"
-                           CornerRadius="22"
-                           BackgroundColor="#F7F6F6"
-                           BorderColor="Transparent">
-                        <Grid Margin="10,0,10,0">
-                            <Entry Text="{Binding UserEmail}"
-                                   FontSize="16"
-                                   FontFamily="GilroyRegular"
-                                   TextColor="#1A1A1A"   />
-                        </Grid>
-                    </Frame>
-                </Grid>
-                <Grid RowDefinitions="*,*"
-                      Margin="25,0,25,0">
-                    <Label Text="Contraseña"
-                           FontSize="12"
-                           FontFamily="GilroyRegular"
-                           TextColor="#828282"
-                           Margin="15,0,0,5" />
-                    <Frame Grid.Row="1"
-                           Padding="2"
-                           CornerRadius="22"
-                           BackgroundColor="#F7F6F6"
-                           BorderColor="Transparent">
-                        <Grid Margin="10,0,10,0"
-                              ColumnDefinitions="*, 30">
-                            <Entry Text="{Binding Password}"
-                                   IsPassword="{Binding ShowPassword}"
-                                   FontSize="16"
-                                   FontFamily="GilroyRegular"
-                                   TextColor="#1A1A1A" />
-                            <ImageButton Grid.Column="1"
-                                         HeightRequest="20"
-                                         WidthRequest="20"
-                                         Source="{Binding ShowPassword, Converter={converters:PasswordIconConverter}}"
-                                         Command="{Binding ShowHidePasswordCommand}"
-                                         />
-                        </Grid>
-                    </Frame>
-                </Grid>
+
+                <uiHelper:CustomEntry LabelText="Email"
+                                      Placeholder="tuemail@email.com"
+                                      EntryText="{Binding UserEmail, Mode=TwoWay}"
+                                      UnfocusedCommand="{Binding ValidateEmailCommand}"
+                                      TextChangedCommand="{Binding ValidateEmailCommand}"
+                                      ErrorLabelText="{Binding EmailErrorMessage}" />
+
+                <uiHelper:CustomEntry LabelText="Contraseña"
+                                      Placeholder="******"
+                                      EntryText="{Binding Password, Mode=TwoWay}"
+                                      Password="True"
+                                      IconSrc="{Binding ShowPassword, Converter={converters:PasswordIconConverter}}"
+                                      UnfocusedCommand="{Binding ValidatePasswordCommand}"
+                                      TextChangedCommand="{Binding ValidatePasswordCommand}"
+                                      ErrorLabelText="{Binding PasswordErrorMessage}"
+                                      IconClickedCommand="{Binding ShowHidePasswordCommand}"/>
+
                 <Label Text="Olvidaste tu contraseña?"
                        FontSize="12"
                        FontFamily="GilroyRegular"
-                       TextColor="#828282"
+                       TextColor="{DynamicResource SecondaryText}"
                        Margin="40,0,40,0">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
@@ -96,8 +67,8 @@
             </VerticalStackLayout>
  
             <Button Text="Login"
-                    BackgroundColor="#F49390"
-                    TextColor="#FFFFFF"
+                    BackgroundColor="{DynamicResource Primary}"
+                    TextColor="{DynamicResource White}"
                     FontFamily="GilroySemibold"
                     FontSize="16"
                     Margin="25"
@@ -107,7 +78,7 @@
             <Grid ColumnDefinitions="*,*"
                   HorizontalOptions="Center"
                   ColumnSpacing="50">
-                <Frame BackgroundColor="#F7F6F6"
+                <Frame BackgroundColor="{DynamicResource FrameBackgroundColor}"
                        Padding="6"
                        CornerRadius="50"
                        BorderColor="Transparent">
@@ -117,10 +88,11 @@
                     <ImageButton Source="instagram_g"
                                  Margin="4" 
                                  HeightRequest="30"
-                                 WidthRequest="30"/>
+                                 WidthRequest="30"
+                                 Command="{Binding LogInInstagramCommand}"/>
                 </Frame>
                 <Frame Grid.Column="1"
-                       BackgroundColor="#F7F6F6"
+                       BackgroundColor="{DynamicResource FrameBackgroundColor}"
                        Padding="6"
                        CornerRadius="50"
                        BorderColor="Transparent">
@@ -138,11 +110,11 @@
                      HeightRequest=".7"
                      Margin="25"/>
             <Button Text="Registrarme"
-                    TextColor="#828282"
+                    TextColor="{DynamicResource SecondaryText}"
                     FontFamily="GilroySemibold"
                     FontSize="16"
                     Margin="25,0,25,0"
-                    BackgroundColor="#F7F6F6"
+                    BackgroundColor="{DynamicResource FrameBackgroundColor}"
                     CornerRadius="16"
                     Command="{Binding SignUpCommand}" />
         </VerticalStackLayout>
