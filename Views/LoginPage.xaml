@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Horus_Challenge.Views.LoginPage"
+             Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="Auto, *"
+          VerticalOptions="FillAndExpand">
+        <Border VerticalOptions="StartAndExpand"
+                Stroke="Transparent"
+                StrokeThickness="0"
+                MaximumHeightRequest="300">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0, 0, 30, 30" />
+            </Border.StrokeShape>
+            <Grid RowDefinitions="*, *">
+                <Image Grid.RowSpan="2"
+                       Source="background"
+                       Aspect="Fill" />
+                <Grid Grid.Row="1"
+                      RowDefinitions="*,*"
+                      VerticalOptions="EndAndExpand"
+                      HorizontalOptions="StartAndExpand"
+                      Margin="45,0,0,23">
+                    <Label Text="Bienvenido a"
+                           TextColor="White"
+                           FontSize="22"
+                           FontFamily="GilroySemibold" />
+                    <Image Grid.Row="1"
+                           Source="logo_w" />
+                </Grid>
+            </Grid>
+        </Border>
+        <VerticalStackLayout Grid.Row="1"
+                             VerticalOptions="FillAndExpand">
+            <VerticalStackLayout Margin="0,25,0,5"
+                                 Spacing="10">
+                <Grid Margin="25,0,25,0"
+                      RowDefinitions="*,*">
+                    <Label Text="Email"
+                           FontSize="12"
+                           FontFamily="GilroyRegular"
+                           TextColor="#828282"
+                           Margin="15,0,0,5" />
+                    <Frame Grid.Row="1"
+                           Padding="2"
+                           CornerRadius="22"
+                           BackgroundColor="#F7F6F6"
+                           BorderColor="Transparent">
+                        <Grid Margin="10,0,10,0">
+                            <Entry Text="Email"
+                                   FontSize="16"
+                                   FontFamily="GilroyRegular"
+                                   TextColor="#1A1A1A" />
+                        </Grid>
+                    </Frame>
+                </Grid>
+                <Grid RowDefinitions="*,*"
+                      Margin="25,0,25,0">
+                    <Label Text="Contraseña"
+                           FontSize="12"
+                           FontFamily="GilroyRegular"
+                           TextColor="#828282"
+                           Margin="15,0,0,5" />
+                    <Frame Grid.Row="1"
+                           Padding="2"
+                           CornerRadius="22"
+                           BackgroundColor="#F7F6F6"
+                           BorderColor="Transparent">
+                        <Grid Margin="10,0,10,0">
+                            <Entry Text="Email"
+                                   IsPassword="True"
+                                   FontSize="16"
+                                   FontFamily="GilroyRegular"
+                                   TextColor="#1A1A1A" />
+                        </Grid>
+                    </Frame>
+                </Grid>
+                <Label Text="Olvidaste tu contraseña?"
+                       FontSize="12"
+                       FontFamily="GilroyRegular"
+                       TextColor="#828282"
+                       Margin="40,0,40,0"/>
+            </VerticalStackLayout>
+ 
+            <Button Text="Login"
+                    BackgroundColor="#F49390"
+                    TextColor="#FFFFFF"
+                    FontFamily="GilroySemibold"
+                    FontSize="16"
+                    Margin="25"
+                    CornerRadius="16"/>
+            <Grid ColumnDefinitions="*,*"
+                  HorizontalOptions="Center"
+                  ColumnSpacing="50">
+                <Frame BackgroundColor="#F7F6F6"
+                       Padding="6"
+                       CornerRadius="50"
+                       BorderColor="Transparent">
+                    <ImageButton Source="instagram_g"
+                                 Margin="4" 
+                                 HeightRequest="30"
+                                 WidthRequest="30"/>
+                </Frame>
+                <Frame Grid.Column="1"
+                       BackgroundColor="#F7F6F6"
+                       Padding="6"
+                       CornerRadius="50"
+                       BorderColor="Transparent">
+                    <ImageButton Source="facebook_g" 
+                                 Margin="4"
+                                 HeightRequest="30"
+                                 WidthRequest="30" />
+                </Frame> 
+            </Grid>
+            <BoxView BackgroundColor="LightGray"
+                     HeightRequest=".7"
+                     Margin="25"/>
+            <Button Text="Registrarme"
+                    TextColor="#828282"
+                    FontFamily="GilroySemibold"
+                    FontSize="16"
+                    Margin="25,0,25,0"
+                    BackgroundColor="#F7F6F6"
+                    CornerRadius="16" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
