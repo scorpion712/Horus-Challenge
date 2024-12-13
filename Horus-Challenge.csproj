@@ -56,7 +56,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\arrow_right_g.png" />
+	  <None Remove="Resources\Images\arrow_right_w.png" />
 	  <None Remove="Resources\Images\background.jpg" />
+	  <None Remove="Resources\Images\back_b.png" />
 	  <None Remove="Resources\Images\eye_b.png" />
 	  <None Remove="Resources\Images\eye_none_b.png" />
 	  <None Remove="Resources\Images\facebook_g.png" />
@@ -76,6 +79,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Helpers\UI\CustomEntry.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\GamificationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LoginPage.xaml">

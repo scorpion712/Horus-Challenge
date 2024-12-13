@@ -26,10 +26,13 @@ namespace Horus_Challenge
                 });
             
             builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<GamificationPage>();
             builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<GamificationViewModel>();
 
             builder.Services.AddSingleton<HttpClientService>();
             builder.Services.AddSingleton<IAuthService, AuthService>();
+            builder.Services.AddSingleton<IChallengesService, ChallengesService>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

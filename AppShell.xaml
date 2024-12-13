@@ -12,4 +12,7 @@
         ContentTemplate="{DataTemplate views:LoginPage}"
         Route="LoginPage" />
 
+    <ShellContent Title="Gamification"
+                  ContentTemplate="{DataTemplate views:GamificationPage}"
+                  Route="GamificationPage" />
 </Shell>
