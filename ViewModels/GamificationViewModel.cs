@@ -44,22 +44,13 @@ public partial class GamificationViewModel(IChallengesService challengesService)
 
     #region Methods
     public async Task FetchChallenges()
-    {
-        if (IsBusy) return;
-
-        try
+        => await LoadingAsync(async () =>
         {
-            IsBusy = true;
             var challengesResponse = await challengesService.GetAll();
 
             Challenges = new ObservableCollection<Challenge>(challengesResponse ?? []);
-        }
-        finally
-        {
-            IsBusy = false;
-        }
 
-    } 
+        }, showLoading: true);
     #endregion
 }
 

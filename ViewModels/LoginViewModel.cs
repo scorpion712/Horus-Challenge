@@ -3,6 +3,7 @@ using Horus_Challenge.Services.Interfaces;
 using Horus_Challenge.Views;
 using Horus_Challenge.Views.PopUps;
 using Mopups.Services;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace Horus_Challenge.ViewModels;
@@ -53,10 +54,8 @@ public partial class LoginViewModel(IAuthService authService) : ViewModelBase
     }
 
     [RelayCommand]
-    private async Task LogIn()
+    private async Task LogIn() => await LoadingAsync(async () =>
     {
-        if (IsBusy) return;
-
         var user = await authService.SignIn(UserEmail, Password);
 
         if (user == null)
@@ -66,7 +65,8 @@ public partial class LoginViewModel(IAuthService authService) : ViewModelBase
         }
 
         await Shell.Current.GoToAsync($"//{nameof(GamificationPage)}", true);
-    }
+
+    }, showLoading: true);
 
     [RelayCommand]
     private async Task LogInFacebook() => await MopupService.Instance.PushAsync(new AlertPage("Facebook"));
