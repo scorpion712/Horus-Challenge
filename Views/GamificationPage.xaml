@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Horus_Challenge.Views.GamificationPage"
+             xmlns:models="clr-namespace:Horus_Challenge.Models"
+             xmlns:converters="clr-namespace:Horus_Challenge.Helpers.Converters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="GamificationPage"
+             x:Name="ThisPage"
+             Shell.NavBarIsVisible="True">
+    <Shell.TitleView>
+        <HorizontalStackLayout HorizontalOptions="StartAndExpand">
+            <ImageButton Source="back_b"
+                         HeightRequest="25"
+                         WidthRequest="25"
+                         Command="{Binding GoBackCommand}" />
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    <Grid RowDefinitions="Auto,*"
+          Padding="10">
+
+        <Grid Margin="20,0,0,20"
+              ColumnDefinitions="*, Auto">
+            <Label Text="Retos"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   FontFamily="GilroySemibold"
+                   TextColor="{DynamicResource PrimaryText}" />
+            <Label Grid.Column="1"
+                   HorizontalOptions="EndAndExpand"
+                   FontSize="14"
+                   FontFamily="GilroySemibold">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding CompletedChallenges}"
+                              TextColor="{DynamicResource Primary}" />
+                        <Span Text="/" />
+                        <Span Text="{Binding TotalChallenges}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </Grid>
+        <RefreshView Grid.Row="1"
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}"
+                     RefreshColor="{DynamicResource Primary}">
+            <CollectionView ItemsSource="{Binding Challenges}"
+                            IsVisible="{Binding IsBusy,Converter={toolkit:InvertedBoolConverter}}">
+                <CollectionView.EmptyViewTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalOptions="Center">
+                            <Label Text="No se encontraron retos"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   FontFamily="GilroyRegular" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.EmptyViewTemplate>
+                <CollectionView.EmptyView>
+                    <DataTemplate />
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Challenge">
+                        <Frame  Padding="15"
+                                Margin="10,5,10,5"
+                                BackgroundColor="{Binding CompletedPercentage, Converter={converters:CompletedPercentageBgColorConverter}}"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                CornerRadius="30"
+                                BorderColor="Transparent"
+                                HasShadow="True">
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTappedChallenge" />
+                            </Frame.GestureRecognizers>
+                            
+                            <Frame.Shadow>
+                                <Shadow Brush="Black"
+                                        Offset="4,4"
+                                        Radius="22"
+                                        Opacity="0.2" />
+                            </Frame.Shadow>
+                            
+                            <Grid RowDefinitions="*,*,*"
+                                  ColumnDefinitions="*, Auto"
+                                  RowSpacing="10"
+                                  VerticalOptions="FillAndExpand">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer  Tapped="OnTappedChallenge" />
+                                </Grid.GestureRecognizers>
+
+                                <Label Text="{Binding Title}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       FontFamily="GilroySemibold"
+                                       VerticalOptions="StartAndExpand"
+                                       TextColor="{Binding CompletedPercentage, Converter={converters:CompletedPercentageTextColorConverter}}" />
+                                <Label Grid.Row="1"
+                                       Text="{Binding Description}"
+                                       FontSize="12"
+                                       FontFamily="GilroyRegular"
+                                       VerticalOptions="StartAndExpand"
+                                       TextColor="{DynamicResource SecondaryText}" />
+                                <Grid Grid.Row="2"
+                                      Grid.ColumnSpan="2"
+                                      RowDefinitions="Auto, Auto"
+                                      ColumnDefinitions="*,*"
+                                      VerticalOptions="StartAndExpand"
+                                      RowSpacing="1">
+                                    <Label Text="{Binding Status}"
+                                           FontSize="12"
+                                           FontFamily="GilroyRegular"
+                                           TextColor="{DynamicResource SecondaryText}" />
+                                    <ProgressBar Grid.Row="2"
+                                                 Grid.ColumnSpan="2"
+                                                 Progress="{Binding Progress}"
+                                                 ScaleY="2.5"
+                                                 ProgressColor="{Binding CompletedPercentage, Converter={converters:CompletedPercentageProgressColorConverter}}" />
+                                    <Label Grid.Column="1"
+                                           HorizontalOptions="EndAndExpand"
+                                           Text="{Binding CompletedPercentage, StringFormat='{0}%'}"
+                                           FontSize="12"
+                                           FontAttributes="Bold"
+                                           FontFamily="GilroySemibold"
+                                           TextColor="{DynamicResource SecondaryText}" />
+
+                                </Grid>
+                                <ImageButton Grid.Column="1"
+                                             Grid.RowSpan="2"
+                                             Source="{Binding CompletedPercentage, Converter={converters:CompletedPercentageIconConverter}}"
+                                             VerticalOptions="StartAndExpand"
+                                             HorizontalOptions="EndAndExpand"
+                                             HeightRequest="25"
+                                             WidthRequest="25"
+                                             Clicked="OnClickedArrowButton"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>
