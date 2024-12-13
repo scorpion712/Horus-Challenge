@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Horus_Challenge.Views.LoginPage"
-             Shell.NavBarIsVisible="False">
+             xmlns:converters="clr-namespace:Horus_Challenge.Helpers.Converters"
+             Shell.NavBarIsVisible="False"
+             x:Name="ThisPage">
     <Grid RowDefinitions="Auto, *"
           VerticalOptions="FillAndExpand">
         <Border VerticalOptions="StartAndExpand"
@@ -47,10 +49,10 @@
                            BackgroundColor="#F7F6F6"
                            BorderColor="Transparent">
                         <Grid Margin="10,0,10,0">
-                            <Entry Text="Email"
+                            <Entry Text="{Binding UserEmail}"
                                    FontSize="16"
                                    FontFamily="GilroyRegular"
-                                   TextColor="#1A1A1A" />
+                                   TextColor="#1A1A1A"   />
                         </Grid>
                     </Frame>
                 </Grid>
@@ -66,12 +68,19 @@
                            CornerRadius="22"
                            BackgroundColor="#F7F6F6"
                            BorderColor="Transparent">
-                        <Grid Margin="10,0,10,0">
-                            <Entry Text="Email"
-                                   IsPassword="True"
+                        <Grid Margin="10,0,10,0"
+                              ColumnDefinitions="*, 30">
+                            <Entry Text="{Binding Password}"
+                                   IsPassword="{Binding ShowPassword}"
                                    FontSize="16"
                                    FontFamily="GilroyRegular"
                                    TextColor="#1A1A1A" />
+                            <ImageButton Grid.Column="1"
+                                         HeightRequest="20"
+                                         WidthRequest="20"
+                                         Source="{Binding ShowPassword, Converter={converters:PasswordIconConverter}}"
+                                         Command="{Binding ShowHidePasswordCommand}"
+                                         />
                         </Grid>
                     </Frame>
                 </Grid>
@@ -79,7 +88,11 @@
                        FontSize="12"
                        FontFamily="GilroyRegular"
                        TextColor="#828282"
-                       Margin="40,0,40,0"/>
+                       Margin="40,0,40,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
             </VerticalStackLayout>
  
             <Button Text="Login"
@@ -88,7 +101,9 @@
                     FontFamily="GilroySemibold"
                     FontSize="16"
                     Margin="25"
-                    CornerRadius="16"/>
+                    CornerRadius="16"
+                    Command="{Binding LogInCommand}"
+                    IsEnabled="{Binding IsButtonEnabled}"/>
             <Grid ColumnDefinitions="*,*"
                   HorizontalOptions="Center"
                   ColumnSpacing="50">
@@ -96,6 +111,9 @@
                        Padding="6"
                        CornerRadius="50"
                        BorderColor="Transparent">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LogInInstagramCommand}" />
+                    </Frame.GestureRecognizers>
                     <ImageButton Source="instagram_g"
                                  Margin="4" 
                                  HeightRequest="30"
@@ -106,10 +124,14 @@
                        Padding="6"
                        CornerRadius="50"
                        BorderColor="Transparent">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BindingContext.LogInFacebookCommand, Source={x:Reference ThisPage}}" />
+                    </Frame.GestureRecognizers>
                     <ImageButton Source="facebook_g" 
                                  Margin="4"
                                  HeightRequest="30"
-                                 WidthRequest="30" />
+                                 WidthRequest="30" 
+                                 Command="{Binding LogInFacebookCommand}"/>
                 </Frame> 
             </Grid>
             <BoxView BackgroundColor="LightGray"
@@ -121,7 +143,8 @@
                     FontSize="16"
                     Margin="25,0,25,0"
                     BackgroundColor="#F7F6F6"
-                    CornerRadius="16" />
+                    CornerRadius="16"
+                    Command="{Binding SignUpCommand}" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
