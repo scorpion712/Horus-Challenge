@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Horus_Challenge.Views.PopUps.AlertPage"
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             xmlns:mopupsanim="clr-namespace:Mopups.Animations;assembly=Mopups"
+             Title="AlertPage"
+                  BackgroundColor="#7F000000">
+    <Border WidthRequest="300"
+            VerticalOptions="CenterAndExpand"
+            BackgroundColor="White">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="10" />
+        </Border.StrokeShape>
+
+        <StackLayout Orientation="Vertical">
+
+            <StackLayout BackgroundColor="#000"
+                         HorizontalOptions="FillAndExpand">
+
+                <Label x:Name="TitleLabel"
+                       FontSize="Medium"
+                       Margin="10"
+                       TextColor="White"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start" />
+
+            </StackLayout>
+
+            <Label x:Name="MessageLabel"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"
+                   FontSize="Small"
+                   Margin="15"
+                   TextColor="Black" />
+
+        </StackLayout>
+
+    </Border>
+</mopups:PopupPage>
