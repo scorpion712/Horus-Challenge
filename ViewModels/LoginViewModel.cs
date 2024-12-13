@@ -1,5 +1,6 @@
 ﻿using Horus_Challenge.Helpers.Utils;
 using Horus_Challenge.Services.Interfaces;
+using Horus_Challenge.Views;
 using Horus_Challenge.Views.PopUps;
 using Mopups.Services;
 using System.Diagnostics;
@@ -54,28 +55,29 @@ public partial class LoginViewModel(IAuthService authService) : ViewModelBase
     [RelayCommand]
     private async Task LogIn()
     {
+        if (IsBusy) return;
+
         var user = await authService.SignIn(UserEmail, Password);
 
         if (user == null)
+        {
             await MopupService.Instance.PushAsync(new AlertPage("Ha ocurrido un error al iniciar sesión. Revise sus credenciales y aseguresé de estar conectado a internet."));
+            return;
+        }
 
-        // TO DO: handle navigation to GamificationPage
+        await Shell.Current.GoToAsync($"//{nameof(GamificationPage)}", true);
     }
 
     [RelayCommand]
-    private Task LogInFacebook() => ShowNotAvailablePopUp();
+    private async Task LogInFacebook() => await MopupService.Instance.PushAsync(new AlertPage("Facebook"));
+    [RelayCommand]
+    private async Task LogInInstagram() => await MopupService.Instance.PushAsync(new AlertPage("Instagram"));
 
     [RelayCommand]
-    private Task LogInInstagram() => ShowNotAvailablePopUp();
+    private async Task SignUp() => await MopupService.Instance.PushAsync(new AlertPage("Registrarme"));
 
     [RelayCommand]
-    private Task SignUp() => ShowNotAvailablePopUp();
-
-    [RelayCommand]
-    private Task ForgotPassword() => ShowNotAvailablePopUp();
+    private async Task ForgotPassword() => await MopupService.Instance.PushAsync(new AlertPage("Olvidaste tu contraseña?"));
     #endregion
 
-    #region Methods
-    private async Task ShowNotAvailablePopUp() => await MopupService.Instance.PushAsync(new AlertPage("Esta función aún no está disponible"));
-    #endregion
 }
