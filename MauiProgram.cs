@@ -13,6 +13,8 @@ namespace Horus_Challenge
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Gilroy-Regular.ttf", "GilroyRegular");
+                    fonts.AddFont("Gilroy-SemiBold.ttf", "GilroySemibold");
                 });
 
 #if DEBUG
