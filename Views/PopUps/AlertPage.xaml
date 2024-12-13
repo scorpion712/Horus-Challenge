@@ -7,6 +7,8 @@
              Title="AlertPage"
                   BackgroundColor="#7F000000">
     <Border WidthRequest="300"
+            Stroke="Transparent"
+            StrokeThickness="0"
             VerticalOptions="CenterAndExpand"
             BackgroundColor="White">
         <Border.StrokeShape>
@@ -15,15 +17,17 @@
 
         <StackLayout Orientation="Vertical">
 
-            <StackLayout BackgroundColor="#000"
+            <StackLayout BackgroundColor="{DynamicResource Primary}"
                          HorizontalOptions="FillAndExpand">
 
                 <Label x:Name="TitleLabel"
                        FontSize="Medium"
+                       FontAttributes="Bold"
                        Margin="10"
-                       TextColor="White"
+                       TextColor="{DynamicResource White}"
                        VerticalOptions="Center"
-                       HorizontalOptions="Start" />
+                       HorizontalOptions="Start"
+                       FontFamily="GilroySemibold" />
 
             </StackLayout>
 
@@ -32,7 +36,8 @@
                    VerticalOptions="CenterAndExpand"
                    FontSize="Small"
                    Margin="15"
-                   TextColor="Black" />
+                   TextColor="Black"
+                   FontFamily="GilroyRegular" />
 
         </StackLayout>
 

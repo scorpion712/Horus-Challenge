@@ -83,7 +83,7 @@
                        CornerRadius="50"
                        BorderColor="Transparent">
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding LogInInstagramCommand}" />
+                        <TapGestureRecognizer Command="{Binding BindingContext.LogInInstagramCommand, Source={x:Reference ThisPage}}" /> 
                     </Frame.GestureRecognizers>
                     <ImageButton Source="instagram_g"
                                  Margin="4" 
