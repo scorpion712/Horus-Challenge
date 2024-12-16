@@ -1,4 +1,5 @@
-﻿using Horus_Challenge.Models;
+﻿using Horus_Challenge.Helpers.Utils;
+using Horus_Challenge.Models;
 using Horus_Challenge.Services.Interfaces;
 using Horus_Challenge.Views.PopUps;
 using Mopups.Services;
@@ -26,9 +27,8 @@ public partial class GamificationViewModel(IChallengesService challengesService)
    => await MopupService.Instance.PushAsync(new AlertPage($"{challenge.Title}: {challenge.Description}", "Reto elegido"));
 
     [RelayCommand]
-    async Task Refresh()
+    public async Task Refresh()
     {
-        if (IsRefreshing) return;
         try
         {
             IsRefreshing = true;
@@ -44,13 +44,31 @@ public partial class GamificationViewModel(IChallengesService challengesService)
 
     #region Methods
     public async Task FetchChallenges()
-        => await LoadingAsync(async () =>
+    {
+        #region Testing
+
+        if (MainThreadHelper.IsTestThread)
+        {
+            await MainThreadHelper.BeginInvokeOnMainThread(async () =>
+            {
+                var challengesResponse = await challengesService.GetAll();
+
+                Challenges = new ObservableCollection<Challenge>(challengesResponse ?? []);
+            });
+            return;
+        }
+        #endregion
+     
+        await LoadingAsync(async () =>
         {
             var challengesResponse = await challengesService.GetAll();
 
             Challenges = new ObservableCollection<Challenge>(challengesResponse ?? []);
 
         }, showLoading: true);
+    }
+
+    public async Task OnAppearing() => await FetchChallenges();
     #endregion
 }
 

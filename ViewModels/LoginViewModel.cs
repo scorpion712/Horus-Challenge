@@ -54,19 +54,41 @@ public partial class LoginViewModel(IAuthService authService) : ViewModelBase
     }
 
     [RelayCommand]
-    private async Task LogIn() => await LoadingAsync(async () =>
+    private async Task LogIn()
     {
-        var user = await authService.SignIn(UserEmail, Password);
+        #region Testing
 
-        if (user == null)
+        if (MainThreadHelper.IsTestThread)
         {
-            await MopupService.Instance.PushAsync(new AlertPage("Ha ocurrido un error al iniciar sesión. Revise sus credenciales y aseguresé de estar conectado a internet."));
+            await MainThreadHelper.BeginInvokeOnMainThread(async () =>
+            {
+                var user = await authService.SignIn(UserEmail, Password);
+
+                if (user == null)
+                {
+                    await MopupService.Instance.PushAsync(new AlertPage("Ha ocurrido un error al iniciar sesión. Revise sus credenciales y aseguresé de estar conectado a internet."));
+                    return;
+                }
+
+                await Shell.Current.GoToAsync($"//{nameof(GamificationPage)}", true);
+            });
             return;
         }
+        #endregion
+        await LoadingAsync(async () =>
+        {
+            var user = await authService.SignIn(UserEmail, Password);
 
-        await Shell.Current.GoToAsync($"//{nameof(GamificationPage)}", true);
+            if (user == null)
+            {
+                await MopupService.Instance.PushAsync(new AlertPage("Ha ocurrido un error al iniciar sesión. Revise sus credenciales y aseguresé de estar conectado a internet."));
+                return;
+            }
 
-    }, showLoading: true);
+            await Shell.Current.GoToAsync($"//{nameof(GamificationPage)}", true);
+
+        }, showLoading: true);
+    } 
 
     [RelayCommand]
     private async Task LogInFacebook() => await MopupService.Instance.PushAsync(new AlertPage("Facebook"));

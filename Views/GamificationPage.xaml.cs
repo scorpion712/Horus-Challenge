@@ -13,7 +13,7 @@ public partial class GamificationPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        (BindingContext as GamificationViewModel).RefreshCommand.Execute(null);
+        (BindingContext as GamificationViewModel).OnAppearing();
     }
 
     private void OnTappedChallenge(object sender, TappedEventArgs e)
