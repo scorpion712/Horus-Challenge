@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Horus_Challenge.Views.LoginPage"
+             xmlns:converters="clr-namespace:Horus_Challenge.Helpers.Converters"
+             xmlns:uiHelper="clr-namespace:Horus_Challenge.Helpers.UI"
+             Shell.NavBarIsVisible="False"
+             x:Name="ThisPage">
+    <Grid RowDefinitions="Auto, *"
+          VerticalOptions="FillAndExpand">
+        <Border VerticalOptions="StartAndExpand"
+                Stroke="Transparent"
+                StrokeThickness="0"
+                MaximumHeightRequest="300">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0, 0, 30, 30" />
+            </Border.StrokeShape>
+            <Grid RowDefinitions="*, *">
+                <Image Grid.RowSpan="2"
+                       Source="background"
+                       Aspect="Fill" />
+                <Grid Grid.Row="1"
+                      RowDefinitions="*,*"
+                      VerticalOptions="EndAndExpand"
+                      HorizontalOptions="StartAndExpand"
+                      Margin="45,0,0,23">
+                    <Label Text="Bienvenido a"
+                           TextColor="White"
+                           FontSize="22"
+                           FontFamily="GilroySemibold" />
+                    <Image Grid.Row="1"
+                           Source="logo_w" />
+                </Grid>
+            </Grid>
+        </Border>
+        <VerticalStackLayout Grid.Row="1"
+                             VerticalOptions="FillAndExpand">
+            <VerticalStackLayout Margin="0,25,0,5"
+                                 Spacing="10">
+
+                <uiHelper:CustomEntry LabelText="Email"
+                                      Placeholder="tuemail@email.com"
+                                      EntryText="{Binding UserEmail, Mode=TwoWay}"
+                                      UnfocusedCommand="{Binding ValidateEmailCommand}"
+                                      TextChangedCommand="{Binding ValidateEmailCommand}"
+                                      ErrorLabelText="{Binding EmailErrorMessage}" />
+
+                <uiHelper:CustomEntry LabelText="Contraseña"
+                                      Placeholder="******"
+                                      EntryText="{Binding Password, Mode=TwoWay}"
+                                      Password="True"
+                                      IconSrc="{Binding ShowPassword, Converter={converters:PasswordIconConverter}}"
+                                      UnfocusedCommand="{Binding ValidatePasswordCommand}"
+                                      TextChangedCommand="{Binding ValidatePasswordCommand}"
+                                      ErrorLabelText="{Binding PasswordErrorMessage}"
+                                      IconClickedCommand="{Binding ShowHidePasswordCommand}"/>
+
+                <Label Text="Olvidaste tu contraseña?"
+                       FontSize="12"
+                       FontFamily="GilroyRegular"
+                       TextColor="{DynamicResource SecondaryText}"
+                       Margin="40,0,40,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </VerticalStackLayout>
+ 
+            <Button Text="Login"
+                    BackgroundColor="{DynamicResource Primary}"
+                    TextColor="{DynamicResource White}"
+                    FontFamily="GilroySemibold"
+                    FontSize="16"
+                    Margin="25"
+                    CornerRadius="16"
+                    Command="{Binding LogInCommand}"
+                    IsEnabled="{Binding IsButtonEnabled}"/>
+            <Grid ColumnDefinitions="*,*"
+                  HorizontalOptions="Center"
+                  ColumnSpacing="50">
+                <Frame BackgroundColor="{DynamicResource FrameBackgroundColor}"
+                       Padding="6"
+                       CornerRadius="50"
+                       BorderColor="Transparent">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BindingContext.LogInInstagramCommand, Source={x:Reference ThisPage}}" /> 
+                    </Frame.GestureRecognizers>
+                    <ImageButton Source="instagram_g"
+                                 Margin="4" 
+                                 HeightRequest="30"
+                                 WidthRequest="30"
+                                 Command="{Binding LogInInstagramCommand}"/>
+                </Frame>
+                <Frame Grid.Column="1"
+                       BackgroundColor="{DynamicResource FrameBackgroundColor}"
+                       Padding="6"
+                       CornerRadius="50"
+                       BorderColor="Transparent">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BindingContext.LogInFacebookCommand, Source={x:Reference ThisPage}}" />
+                    </Frame.GestureRecognizers>
+                    <ImageButton Source="facebook_g" 
+                                 Margin="4"
+                                 HeightRequest="30"
+                                 WidthRequest="30" 
+                                 Command="{Binding LogInFacebookCommand}"/>
+                </Frame> 
+            </Grid>
+            <BoxView BackgroundColor="LightGray"
+                     HeightRequest=".7"
+                     Margin="25"/>
+            <Button Text="Registrarme"
+                    TextColor="{DynamicResource SecondaryText}"
+                    FontFamily="GilroySemibold"
+                    FontSize="16"
+                    Margin="25,0,25,0"
+                    BackgroundColor="{DynamicResource FrameBackgroundColor}"
+                    CornerRadius="16"
+                    Command="{Binding SignUpCommand}" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
