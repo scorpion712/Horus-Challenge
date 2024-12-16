@@ -1,4 +1,5 @@
-﻿using Horus_Challenge.Services;
+﻿using Horus_Challenge.Helpers;
+using Horus_Challenge.Services;
 using Horus_Challenge.Services.Interfaces;
 using Horus_Challenge.ViewModels;
 using Horus_Challenge.Views;
@@ -24,30 +25,11 @@ namespace Horus_Challenge
                     fonts.AddFont("Gilroy-Regular.ttf", "GilroyRegular");
                     fonts.AddFont("Gilroy-SemiBold.ttf", "GilroySemibold");
                 });
-            
-            builder.Services.AddTransient<LoginPage>();
-            builder.Services.AddTransient<GamificationPage>();
-            builder.Services.AddTransient<LoginViewModel>();
-            builder.Services.AddTransient<GamificationViewModel>();
 
-            builder.Services.AddSingleton<HttpClientService>();
-            builder.Services.AddSingleton<IAuthService, AuthService>();
-            builder.Services.AddSingleton<IChallengesService, ChallengesService>();
+            builder.Services.AddServicesLayer();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-
-
-            // Entries handler to hide underline on Entry
-            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
-            {
-#if __ANDROID__
-    handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
-#elif __IOS__
-                handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
-                handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
-#endif
-            });
 
             return builder.Build();
         }
