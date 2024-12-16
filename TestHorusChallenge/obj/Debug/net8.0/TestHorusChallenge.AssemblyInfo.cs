@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TestHorusChallenge")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60e17e1fd13e92b3a6f2c9e568093d85d4a7fcfe")]
 [assembly: System.Reflection.AssemblyProductAttribute("TestHorusChallenge")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TestHorusChallenge")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
